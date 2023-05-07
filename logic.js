@@ -6,7 +6,7 @@ let boxesMini = Array.from(document.getElementsByClassName('boxMini'));
 const O_TEXT = "O";
 const X_TEXT = "X";
 let currentPlayer = X_TEXT;
-let spaces = Array(9).fill(null);
+let spaces = Array(9).fill(false);
 let spacesMini = Array(81).fill(null);
 let playableBox = 4;
 
@@ -35,10 +35,10 @@ function boxMiniClicked(e){
     console.log(id);
 
     if(!spacesMini[id]){
-        spacesMini = currentPlayer;
+        spacesMini[id] = currentPlayer;
         e.target.innerText = currentPlayer;
 
-        if(playerHasWon() !== false){
+        if(playerHasWonMini()){
             console.log('good job. u beat the game ig.');
             
         }
@@ -70,6 +70,25 @@ function playerHasWon() {
 }
 
 
+restartBtn.addEventListener('click', restart)
+
+function restart() {
+    spaces.fill(null);
+
+    boxes.forEach( box => {
+        box.innerText = ''
+        box.style.backgroundColor = '';
+    })
+    boxesMini.forEach( box => {
+        boxMini.innerText = '';
+        boxMini.style.backgroundColor = '';
+
+    })
+
+    playerText.innerHTML = 'Tic Tac Toe';
+
+    currentPlayer = X_TEXT;
+}
 
 
 
@@ -155,19 +174,6 @@ function boxClicked(e) {
 
 
 
-restartBtn.addEventListener('click', restart)
 
-function restart() {
-    spaces.fill(null)
-
-    boxes.forEach( box => {
-        box.innerText = ''
-        box.style.backgroundColor=''
-    })
-
-    playerText.innerHTML = 'Tic Tac Toe'
-
-    currentPlayer = X_TEXT
-}
 
 startGame()
