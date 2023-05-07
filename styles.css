@@ -5,15 +5,15 @@
 }
 
 :root {
-    --orange: #ff0000;
-    --yellow: #fff200;
-    --blue: #0000ff;
+    --red: #ff0000;
+    --yellow: #8f8a29;
+    --blue: #1582ca;
     --green: #00ff00;
     --winning-blocks: #2d414b;
 }
 
 body {
-    color: var(--orange);
+    color: var(--red);
     font-family: 'Finger Paint', cursive;
 }
 h1 {
@@ -49,12 +49,12 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--orange);
+    color: var(--red);
     font-size: 60px;
     border-right: 1px solid;
     border-bottom: 1px solid;
-    border-top: 1px solid #37505C;
-    border-left: 1px solid #37505C;
+    border-top: 1px;
+    border-left: 1px;
 }
 .boxMini:nth-child(3n){
     border-right: none;
@@ -68,7 +68,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--orange);
+    color: var(--red);
     font-size: 180px;
     border-right: 3px solid;
     border-bottom: 3px solid;
@@ -82,9 +82,9 @@ h1 {
 button {
     padding: 10px 20px;
     border-radius: 10px;
-    background-color: var(--orange);
+    background-color: var(--red);
     color: #333;
-    border-color: var(--orange);
+    border-color: var(--red);
     font-size: 18px;
     transition: 200ms transform;
     font-weight: 600;
