@@ -6,6 +6,9 @@
 
 :root {
     --orange: #F2C14E;
+    --yellow: #fff200;
+    --blue: #001aff;
+    --green: #09ff00;
     --winning-blocks: #2d414b;
 }
 
@@ -50,8 +53,8 @@ h1 {
     font-size: 60px;
     border-right: 1px solid;
     border-bottom: 1px solid;
-    /* border-top: 1px solid #37505C; */
-    /* border-left: 1px solid #37505C; */
+    border-top: 1px solid #37505C;
+    border-left: 1px solid #37505C;
 }
 .boxMini:nth-child(3n){
     border-right: none;
