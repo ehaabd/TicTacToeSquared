@@ -40,7 +40,7 @@ function boxMiniClicked(e){
             e.target.innerText = currentPlayer;
     
             if(playerHasWonMini()){
-                if(spaces[playableBox]==X_TEXT||spaces[playableBox]==O_TEXT){
+                if(((spaces[playableBox]==X_TEXT) && currentPlayer==O_TEXT)||(spaces[playableBox]==O_TEXT && currentPlayer == X_TEXT)){
                     console.log('you should never run');
                     spaces[playableBox] = 'Y';
                     boxes[playableBox].style.backgroundColor='#00ff00';
@@ -64,8 +64,19 @@ function boxMiniClicked(e){
 function playerHasWonMini(){
     for(const condition of winningCombos){
         let a = condition[0], b = condition[1], c = condition[2];
-
-        if(((spacesMini[a+(playableBox*9)] !== null) && (spacesMini[a+(playableBox*9)] == spacesMini[b+(playableBox*9)] && spacesMini[a+(playableBox*9)] == spacesMini[c+(playableBox*9)]))){
+        
+        if(spacesMini[a+(playableBox*9)] !== null && (spacesMini[a+(playableBox*9)] == spacesMini[b+(playableBox*9)]) && spacesMini[b+(playableBox*9)] == spacesMini[c+(playableBox*9)]){
+            console.log('alr checking for win');
+            if(spaces[playableBox] == 'Y'){
+                console.log('no win because y');
+                return false;
+            }
+            if(spaces[playableBox] == O_TEXT && spacesMini[a+(playableBox*9)]==O_TEXT){
+                return false;
+            }
+            if(spaces[playableBox] == X_TEXT && spacesMini[a+(playableBox*9)]==X_TEXT){
+                return false;
+            }
             return true;
         }
     }
