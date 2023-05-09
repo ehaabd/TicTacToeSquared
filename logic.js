@@ -29,9 +29,6 @@ const startGame = () => {
     restartBtn.addEventListener('click', restart)
 }
 
-//Issue with winning in a box that is already won
-//Game theory bug with trying to play in a box that is fully covered
-
 //Copied from StackOverflow because JavaScript is weird
 function getRandomInt(min, max) {
     min = Math.ceil(min);
