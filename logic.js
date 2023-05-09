@@ -27,6 +27,7 @@ const winningCombos = [
 const startGame = () => {
     boxesMini.forEach(boxMini => boxMini.addEventListener('click', boxMiniClicked));
     restartBtn.addEventListener('click', restart)
+    boxesMini.forEach(boxMini => boxMini.removeEventListener('click', boxMiniClicked));
 }
 
 //Copied from StackOverflow because JavaScript is weird
@@ -35,6 +36,7 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
 
 function boxMiniClicked(e){
     const id = e.target.id;
@@ -136,13 +138,12 @@ function restart() {
     })
 
     playableBox = 4;
-
     playerText.innerHTML = 'Tic Tac Toe';
-
     currentPlayer = X_TEXT;
+    startGame();
 }
 
-startGame()
+startGame();
 
 
 
