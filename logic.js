@@ -57,18 +57,25 @@ function boxMiniClicked(e){
                 }else{
                     spaces[playableBox] = O_TEXT;
                     boxes[playableBox].style.backgroundColor = '#8f8a29';
-                }      
+                }
+                if(playerHasWon()){
+                    playerText.innerHTML = `${currentPlayer} has won!`;
+                } 
             }
-
+            currentPlayer = currentPlayer == X_TEXT ? O_TEXT : X_TEXT;
             playableBox = (id%9);
             for(let i=0; i<9; i++){
                 if(spacesMini[i+(playableBox*9)] == null){
                     break;
-                }else if(i==9){
-                playableBox = getRandomInt(0, 8);
+                }else if(i==8){
+                    for(let j=0; j<81; j++){
+                        if(spacesMini[j]==null){
+                            playableBox=Math.floor(j/9);
+                            break;
+                        }
+                    }
                 }
             }
-            currentPlayer = currentPlayer == X_TEXT ? O_TEXT : X_TEXT;
         }
     } 
 }
@@ -77,7 +84,7 @@ function playerHasWonMini(){
     for(const condition of winningCombos){
         let a = condition[0], b = condition[1], c = condition[2];
         
-        if(spacesMini[a+(playableBox*9)] !== null && (spacesMini[a+(playableBox*9)] == spacesMini[b+(playableBox*9)]) && spacesMini[b+(playableBox*9)] == spacesMini[c+(playableBox*9)]){
+        if(spacesMini[a+(playableBox*9)] != null && (spacesMini[a+(playableBox*9)] == spacesMini[b+(playableBox*9)]) && spacesMini[b+(playableBox*9)] == spacesMini[c+(playableBox*9)]){
             if(spaces[playableBox] == 'Y'){
                 return false;
             }
@@ -103,8 +110,17 @@ function playerHasWon() {
     for (const condition of winningCombos) {
         let [a, b, c] = condition
 
-        if(spaces[a] && (spaces[a] == spaces[b] && spaces[a] == spaces[c])) {
-            return [a,b,c];
+        if(spaces[a] != null && ((spaces[a]==spaces[b] || spaces[a] == 'Y') && (spaces[a]==spaces[c] || spaces[c] == 'Y') && (spaces[c]==spaces[b] || spaces[b] == 'Y'))){
+            if(spaces[a] != 'Y'){
+                return spaces[a];
+            }else if(spaces[b] != 'Y'){
+                return spaces[b];
+            }else if(spaces[c] != 'Y'){
+                return spaces[c];
+            }else{
+                playerText.innerHTML = 'Um . . . Why would you do this? Nobody wins!';
+                break;
+            }
         }
     }
     return false;
@@ -200,7 +216,7 @@ function boxClicked(e) {
         spaces[id] = currentPlayer
         e.target.innerText = currentPlayer
 
-        if(playerHasWon() !==false){
+        if(playerHasWon() !=false){
             playerText.innerHTML = `${currentPlayer} has won!`
             let winning_blocks = playerHasWon()
 
