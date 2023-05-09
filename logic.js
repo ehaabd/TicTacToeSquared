@@ -29,7 +29,15 @@ const startGame = () => {
     restartBtn.addEventListener('click', restart)
 }
 
-//Error with logic gate determining if player has won - needs to be recreated in multiple parts, including the involvement of Y
+//Issue with winning in a box that is already won
+//Game theory bug with trying to play in a box that is fully covered
+
+//Copied from StackOverflow because JavaScript is weird
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 function boxMiniClicked(e){
     const id = e.target.id;
@@ -41,21 +49,25 @@ function boxMiniClicked(e){
     
             if(playerHasWonMini()){
                 if(((spaces[playableBox]==X_TEXT) && currentPlayer==O_TEXT)||(spaces[playableBox]==O_TEXT && currentPlayer == X_TEXT)){
-                    console.log('you should never run');
                     spaces[playableBox] = 'Y';
                     boxes[playableBox].style.backgroundColor='#00ff00';
                 }else if(currentPlayer == X_TEXT){
-                    console.log('why are you running');
                     spaces[playableBox] = X_TEXT;
                     boxes[playableBox].style.backgroundColor = '#1582ca';
                 }else{
-                    console.log('you should run');
                     spaces[playableBox] = O_TEXT;
                     boxes[playableBox].style.backgroundColor = '#8f8a29';
                 }      
             }
 
             playableBox = (id%9);
+            for(let i=0; i<9; i++){
+                if(spacesMini[i+(playableBox*9)] == null){
+                    break;
+                }else if(i==9){
+                playableBox = getRandomInt(0, 8);
+                }
+            }
             currentPlayer = currentPlayer == X_TEXT ? O_TEXT : X_TEXT;
         }
     } 
@@ -66,16 +78,20 @@ function playerHasWonMini(){
         let a = condition[0], b = condition[1], c = condition[2];
         
         if(spacesMini[a+(playableBox*9)] !== null && (spacesMini[a+(playableBox*9)] == spacesMini[b+(playableBox*9)]) && spacesMini[b+(playableBox*9)] == spacesMini[c+(playableBox*9)]){
-            console.log('alr checking for win');
             if(spaces[playableBox] == 'Y'){
-                console.log('no win because y');
                 return false;
             }
-            if(spaces[playableBox] == O_TEXT && spacesMini[a+(playableBox*9)]==O_TEXT){
-                return false;
+
+            if(spaces[playableBox] == null){
+                return true;
             }
-            if(spaces[playableBox] == X_TEXT && spacesMini[a+(playableBox*9)]==X_TEXT){
-                return false;
+
+            if(spaces[playableBox] == O_TEXT && spacesMini[a+(playableBox*9)] == O_TEXT){
+                continue;
+            }
+
+            if(spaces[playableBox] == X_TEXT && spacesMini[a+(playableBox*9)] == X_TEXT){
+                continue;
             }
             return true;
         }
