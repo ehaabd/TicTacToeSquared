@@ -27,7 +27,6 @@ const winningCombos = [
 const startGame = () => {
     boxesMini.forEach(boxMini => boxMini.addEventListener('click', boxMiniClicked));
     restartBtn.addEventListener('click', restart)
-    boxesMini.forEach(boxMini => boxMini.removeEventListener('click', boxMiniClicked));
 }
 
 //Copied from StackOverflow because JavaScript is weird
@@ -59,6 +58,7 @@ function boxMiniClicked(e){
                 }
                 if(playerHasWon()){
                     playerText.innerHTML = `${currentPlayer} has won!`;
+                    boxesMini.forEach(boxMini => boxMini.removeEventListener('click', boxMiniClicked));
                 } 
             }
             currentPlayer = currentPlayer == X_TEXT ? O_TEXT : X_TEXT;

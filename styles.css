@@ -5,11 +5,12 @@
 }
 
 :root {
-    --red: #ff0000;
-    --yellow: #8f8a29;
+    --red: #ffffff;
+    --yellow: #fcef00;
     --blue: #1582ca;
     --green: #00ff00;
-    --winning-blocks: #2d414b;
+    --winning-yellow: #777300;
+    --winning-blue: #003c64;
 }
 
 body {
@@ -28,7 +29,7 @@ h1 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #37505C;
+    background-color: #000000;
 }
 
 #gameboard {
@@ -83,11 +84,12 @@ button {
     padding: 10px 20px;
     border-radius: 10px;
     background-color: var(--red);
-    color: #333;
+    color: #000000;
     border-color: var(--red);
     font-size: 18px;
     transition: 200ms transform;
     font-weight: 600;
+    font-family: 'Finger Paint', cursive;
 }
 button:hover {
     cursor: pointer;
